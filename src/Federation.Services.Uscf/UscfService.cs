@@ -13,6 +13,8 @@ public class UscfService
         File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
             $"JsonConfigs{Path.DirectorySeparatorChar}PlayerProfile.json"));
 
+    private static readonly HtmlParser<PlayerProfile> ProfileParser = new(PlayerProfileSchema);
+
     public UscfService()
     {
         httpClient = new HttpClient();
@@ -20,7 +22,7 @@ public class UscfService
         var currentAssembly = Assembly.GetExecutingAssembly();
 
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent",
-            $".NET {currentAssembly.ImageRuntimeVersion}; {nameof(Federation)}.{nameof(Services)}.{nameof(Uscf)}");
+            $".NET {currentAssembly.ImageRuntimeVersion}; {currentAssembly.GetName()}");
     }
 
     public async ValueTask<PlayerProfile?> GetPlayerProfileAsync(string uscfId,
@@ -30,10 +32,8 @@ public class UscfService
             await httpClient.GetAsync($"https://www.uschess.org/msa/MbrDtlMain.php?{HttpUtility.UrlEncode(uscfId)}",
                 cancellationToken);
 
-        if (!response.IsSuccessStatusCode) return default;
-
-        HtmlParser<PlayerProfile> parser = new(PlayerProfileSchema);
-
-        return parser.Parse(await response.Content.ReadAsStreamAsync(cancellationToken));
+        return !response.IsSuccessStatusCode
+            ? default
+            : ProfileParser.Parse(await response.Content.ReadAsStreamAsync(cancellationToken));
     }
 }

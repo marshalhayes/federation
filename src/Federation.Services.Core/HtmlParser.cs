@@ -12,13 +12,15 @@ public class HtmlParser<T> where T : new()
     private static readonly ImmutableArray<PropertyInfo> PropertyInfos =
         typeof(T).GetProperties().Where(t => t.CanWrite).ToImmutableArray();
 
-    private readonly ConfigSection configSection;
     private readonly StructuredDataExtractor dataExtractor;
+    private readonly ImmutableArray<PropertyInfo> relevantPropertyInfo;
 
     public HtmlParser(string jsonConfig)
     {
-        configSection = StructuredDataConfig.ParseJsonString(jsonConfig);
+        ConfigSection configSection = StructuredDataConfig.ParseJsonString(jsonConfig);
         dataExtractor = new StructuredDataExtractor(configSection);
+
+        relevantPropertyInfo = PropertyInfos.Where(p => configSection.Children.ContainsKey(p.Name)).ToImmutableArray();
     }
 
     /// <summary>
@@ -33,11 +35,10 @@ public class HtmlParser<T> where T : new()
 
         if (!container.HasValues) return default;
 
-        // Create a new instance of type T and 
-        var obj = Activator.CreateInstance<T>();
+        var obj = new T();
 
         // Dynamically retrieve and set the properties in type T with the values from the parsed html
-        foreach (PropertyInfo property in PropertyInfos.Where(p => configSection.Children.ContainsKey(p.Name)))
+        foreach (PropertyInfo property in relevantPropertyInfo)
         {
             JToken? propertyToken = container[property.Name];
             object? propertyValue = propertyToken?.ToObject(property.PropertyType);

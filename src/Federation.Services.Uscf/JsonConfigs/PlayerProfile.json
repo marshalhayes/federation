@@ -6,12 +6,9 @@
         "_type": "RegexTransformation",
         "_regex": "[0-9]+: (.*)"
       },
-      {
-        "_type": "HtmlDecodeTransformation"
-      },
-      {
-        "_type": "TrimTransformation"
-      }
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
     ]
   },
   "UscfId": {
@@ -21,6 +18,30 @@
         "_type": "RegexTransformation",
         "_regex": "([0-9]+): .*"
       }
+    ]
+  },
+  "RegularRating": {
+    "_xpath": "//tr[td[normalize-space()='Regular Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "QuickRating": {
+    "_xpath": "//tr[td[normalize-space()='Quick Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "BlitzRating": {
+    "_xpath": "//tr[td[normalize-space()='Blitz Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
     ]
   }
 }

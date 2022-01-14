@@ -42,4 +42,20 @@ public class UscfServiceTests
 
         Assert.Equal(name, profile?.PlayerName);
     }
+
+    [Theory]
+    [InlineData("13607491")]
+    public async Task RatingsShouldHaveSomeValue(string uscfId)
+    {
+        PlayerProfile? profile = await UscfService.GetPlayerProfileAsync(uscfId);
+
+        Assert.True(!string.IsNullOrWhiteSpace(profile?.RegularRating),
+            $"{nameof(PlayerProfile.RegularRating)} should have some value");
+
+        Assert.True(!string.IsNullOrWhiteSpace(profile?.QuickRating),
+            $"{nameof(PlayerProfile.QuickRating)} should have some value");
+
+        Assert.True(!string.IsNullOrWhiteSpace(profile?.BlitzRating),
+            $"{nameof(PlayerProfile.BlitzRating)} should have some value");
+    }
 }
