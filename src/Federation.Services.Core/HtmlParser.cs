@@ -21,6 +21,12 @@ public class HtmlParser<T> where T : new()
         dataExtractor = new StructuredDataExtractor(configSection);
     }
 
+    /// <summary>
+    /// Parses <paramref name="html"/> and attempts to build an object of type <typeparamref name="T"/>
+    /// whose property values are set based on the json config.
+    /// </summary>
+    /// <param name="html">The HTML to parse</param>
+    /// <returns>An instance of type <typeparamref name="T"/> or null</returns>
     public T? Parse(string html)
     {
         JContainer container = dataExtractor.Extract(html);
@@ -40,5 +46,14 @@ public class HtmlParser<T> where T : new()
         }
 
         return obj;
+    }
+
+    /// <inheritdoc cref="Parse(string)"/>
+    public T? Parse(Stream htmlStream)
+    {
+        using Stream stream = htmlStream;
+        using StreamReader streamReader = new(stream);
+
+        return Parse(streamReader.ReadToEnd());
     }
 }

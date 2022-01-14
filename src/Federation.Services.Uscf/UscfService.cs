@@ -31,13 +31,8 @@ public class UscfService
 
         if (!response.IsSuccessStatusCode) return default;
 
-        await using Stream profileStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        using StreamReader reader = new(profileStream);
-
-        string profileHtml = await reader.ReadToEndAsync();
-
         HtmlParser<PlayerProfile> parser = new(PlayerProfileSchema);
 
-        return parser.Parse(profileHtml);
+        return parser.Parse(await response.Content.ReadAsStreamAsync(cancellationToken));
     }
 }
