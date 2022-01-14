@@ -10,7 +10,8 @@ public class UscfService
     private readonly HttpClient httpClient;
 
     private static readonly string PlayerProfileSchema =
-        File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..", "JsonConfigs/PlayerProfile.json"));
+        File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
+            $"JsonConfigs{Path.DirectorySeparatorChar}PlayerProfile.json"));
 
     public UscfService()
     {
