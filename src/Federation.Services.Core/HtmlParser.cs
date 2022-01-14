@@ -40,7 +40,7 @@ public class HtmlParser<T> where T : new()
         foreach (PropertyInfo property in PropertyInfos.Where(p => configSection.Children.ContainsKey(p.Name)))
         {
             JToken? propertyToken = container[property.Name];
-            object? propertyValue = propertyToken.ToObject(property.PropertyType);
+            object? propertyValue = propertyToken?.ToObject(property.PropertyType);
 
             property.SetValue(obj, propertyValue);
         }
