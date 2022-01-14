@@ -1,0 +1,26 @@
+{
+  "PlayerName": {
+    "_xpath": "//font/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "[0-9]+: (.*)"
+      },
+      {
+        "_type": "HtmlDecodeTransformation"
+      },
+      {
+        "_type": "TrimTransformation"
+      }
+    ]
+  },
+  "UscfId": {
+    "_xpath": "//font/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "([0-9]+): .*"
+      }
+    ]
+  }
+}

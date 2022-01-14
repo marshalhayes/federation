@@ -1,0 +1,15 @@
+# OS-specific
+.DS_Store
+
+# IDE-specific
+.idea/
+.vscode/
+.vs/
+
+# User-specific
+*.user
+
+# Binary files
+bin/
+obj/
+packages/

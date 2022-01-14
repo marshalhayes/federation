@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F7457DC-1577-4171-9916-9D8CB9E51C34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Federation.Services.Uscf", "src\Federation.Services.Uscf\Federation.Services.Uscf.csproj", "{79724D48-3004-425A-AD92-BB8E083D63FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Federation.Services.Core", "src\Federation.Services.Core\Federation.Services.Core.csproj", "{232AD015-6081-4E68-B4BB-AB352ADC0F63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CA384998-7940-4647-B595-D59B6FF1CCD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Federation.Services.Uscf.Tests", "tests\Federation.Services.Uscf.Tests\Federation.Services.Uscf.Tests.csproj", "{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{403E1E28-29CD-47B2-B351-5C288A80B79C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{79724D48-3004-425A-AD92-BB8E083D63FE} = {4F7457DC-1577-4171-9916-9D8CB9E51C34}
+		{232AD015-6081-4E68-B4BB-AB352ADC0F63} = {4F7457DC-1577-4171-9916-9D8CB9E51C34}
+		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA} = {CA384998-7940-4647-B595-D59B6FF1CCD0}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79724D48-3004-425A-AD92-BB8E083D63FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79724D48-3004-425A-AD92-BB8E083D63FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79724D48-3004-425A-AD92-BB8E083D63FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79724D48-3004-425A-AD92-BB8E083D63FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232AD015-6081-4E68-B4BB-AB352ADC0F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232AD015-6081-4E68-B4BB-AB352ADC0F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232AD015-6081-4E68-B4BB-AB352ADC0F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232AD015-6081-4E68-B4BB-AB352ADC0F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
