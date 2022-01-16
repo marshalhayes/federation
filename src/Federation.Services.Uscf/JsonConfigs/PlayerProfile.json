@@ -43,5 +43,95 @@
       "RemoveExtraWhitespaceTransformation",
       "TrimTransformation"
     ]
+  },
+  "OnlineRegularRating": {
+    "_xpath": "//tr[td[normalize-space()='Online-Regular Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "OnlineQuickRating": {
+    "_xpath": "//tr[td[normalize-space()='Online-Quick Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "OnlineBlitzRating": {
+    "_xpath": "//tr[td[normalize-space()='Online-Blitz Rating']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "State": {
+    "_xpath": "//tr[td[normalize-space()='State']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "ExpiresOn": {
+    "_xpath": "//tr[td[normalize-space()='Expiration Dt.']]/td[2]",
+    "_transformations": [
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation",
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  },
+  "LastChangeDate": {
+    "_xpath": "//tr[td[normalize-space()='Last Change Dt.']]/td[2]",
+    "_transformations": [
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation",
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  },
+  "OverallRanking": {
+    "_xpath": "//tr[td[normalize-space()='Overall Ranking']]/td[2]",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^(\\d+)"
+      }
+    ]
+  },
+  "OverallRankingOutOf": {
+    "_xpath": "//tr[td[normalize-space()='Overall Ranking']]/td[2]",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "(\\d+)$"
+      }
+    ]
+  },
+  "StateRanking": {
+    "_xpath": "//tr[td[contains(., 'State Ranking')]]/td[2]",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^(\\d+)"
+      }
+    ]
+  },
+  "StateRankingOutOf": {
+    "_xpath": "//tr[td[contains(., 'State Ranking')]]/td[2]",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "(\\d+)$"
+      }
+    ]
   }
 }
