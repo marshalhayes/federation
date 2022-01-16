@@ -14,6 +14,10 @@ public class HtmlParser<T> where T : new()
     private readonly StructuredDataExtractor dataExtractor;
     private readonly PropertyInfo[] relevantPropertyInfo;
 
+    /// <summary>
+    /// Sets up a new <see cref="HtmlParser{T}"/> configured with <paramref name="jsonConfig"/>
+    /// </summary>
+    /// <param name="jsonConfig"></param>
     public HtmlParser(string jsonConfig)
     {
         ConfigSection configSection = StructuredDataConfig.ParseJsonString(jsonConfig);
