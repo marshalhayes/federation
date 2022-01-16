@@ -16,6 +16,8 @@ public class PlayerProfile
 
     public string? State { get; set; }
 
+    public string? Gender { get; set; }
+
     public DateTime? ExpiresOn { get; set; }
 
     public DateTime? LastChangeDate { get; set; }

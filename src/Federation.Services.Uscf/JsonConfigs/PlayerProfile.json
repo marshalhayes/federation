@@ -76,6 +76,14 @@
       "TrimTransformation"
     ]
   },
+  "Gender": {
+    "_xpath": "//tr[td[normalize-space()='Gender']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
   "ExpiresOn": {
     "_xpath": "//tr[td[normalize-space()='Expiration Dt.']]/td[2]",
     "_transformations": [

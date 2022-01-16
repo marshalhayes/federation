@@ -58,4 +58,14 @@ public class UscfServiceTests
         Assert.True(!string.IsNullOrWhiteSpace(profile?.BlitzRating),
             $"{nameof(PlayerProfile.BlitzRating)} should have some value");
     }
+
+    [Theory]
+    [InlineData("13607491")]
+    public async Task GenderShouldHaveSomeValue(string uscfId)
+    {
+        PlayerProfile? profile = await UscfService.GetPlayerProfileAsync(uscfId);
+
+        Assert.True(!string.IsNullOrWhiteSpace(profile?.Gender),
+            $"{nameof(PlayerProfile.Gender)} should have some value");
+    }
 }
