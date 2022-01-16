@@ -34,6 +34,6 @@ public class UscfService
 
         return !response.IsSuccessStatusCode
             ? default
-            : ProfileParser.Parse(await response.Content.ReadAsStreamAsync(cancellationToken));
+            : ProfileParser.Parse(await response.Content.ReadAsStreamAsync());
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 using OpenScraping;
@@ -9,18 +8,18 @@ namespace Federation.Services.Core;
 public class HtmlParser<T> where T : new()
 {
     // Cache off T's properties
-    private static readonly ImmutableArray<PropertyInfo> PropertyInfos =
-        typeof(T).GetProperties().Where(t => t.CanWrite).ToImmutableArray();
+    private static readonly PropertyInfo[] PropertyInfos =
+        typeof(T).GetProperties().Where(t => t.CanWrite).ToArray();
 
     private readonly StructuredDataExtractor dataExtractor;
-    private readonly ImmutableArray<PropertyInfo> relevantPropertyInfo;
+    private readonly PropertyInfo[] relevantPropertyInfo;
 
     public HtmlParser(string jsonConfig)
     {
         ConfigSection configSection = StructuredDataConfig.ParseJsonString(jsonConfig);
         dataExtractor = new StructuredDataExtractor(configSection);
 
-        relevantPropertyInfo = PropertyInfos.Where(p => configSection.Children.ContainsKey(p.Name)).ToImmutableArray();
+        relevantPropertyInfo = PropertyInfos.Where(p => configSection.Children.ContainsKey(p.Name)).ToArray();
     }
 
     /// <summary>
