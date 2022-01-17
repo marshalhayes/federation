@@ -15,7 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		README.md = README.md
 		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Federation.App", "src\Federation.App\Federation.App.csproj", "{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +30,7 @@ Global
 		{79724D48-3004-425A-AD92-BB8E083D63FE} = {4F7457DC-1577-4171-9916-9D8CB9E51C34}
 		{232AD015-6081-4E68-B4BB-AB352ADC0F63} = {4F7457DC-1577-4171-9916-9D8CB9E51C34}
 		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA} = {CA384998-7940-4647-B595-D59B6FF1CCD0}
+		{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99} = {4F7457DC-1577-4171-9916-9D8CB9E51C34}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{79724D48-3004-425A-AD92-BB8E083D63FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +45,9 @@ Global
 		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC590505-5A3B-4EAD-A3DF-A9E6450EF1FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

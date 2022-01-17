@@ -1,0 +1,245 @@
+<div class="max-w-7xl mx-auto px-3 mt-3">
+  <h5 class="text-pink-500 text-sm font-mono font-semibold uppercase">
+    USCF Profile
+  </h5>
+
+  <div class="flex flex-col space-y-5 md:flex-row md:space-x-10 md:space-y-0">
+    <div class="md:w-1/5">
+      <div class="mb-3">
+        <h1 class="font-semibold text-2xl capitalize">
+          {{ player.playerName?.toLowerCase() }}
+        </h1>
+
+        <h2>{{ player.playerId }}</h2>
+      </div>
+
+      <ul class="flex flex-col">
+        <li class="flex space-x-1 items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+
+          <span>{{ player.state }}</span>
+        </li>
+
+        <li
+          class="flex space-x-1 items-center"
+          *ngIf="player.lastChangeDate !== null"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+
+          <div class="flex space-x-1">
+            <span>Last changed</span>
+
+            <time [dateTime]="player.lastChangeDate.toISOString()">
+              {{ player.lastChangeDate | date: 'shortDate' }}
+            </time>
+          </div>
+        </li>
+
+        <li
+          class="flex space-x-1 items-center"
+          *ngIf="player.expiresOn !== null"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+
+          <div class="flex space-x-1">
+            <span>{{ player.expiresOn < today ? 'Expired' : 'Expires' }}</span>
+
+            <time [dateTime]="player.expiresOn.toISOString()">
+              {{ player.expiresOn | date: 'shortDate' }}
+            </time>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex-grow md:w-4/5">
+      <div class="flex flex-col space-y-5">
+        <section>
+          <h5
+            class="text-pink-500 text-sm font-mono font-semibold uppercase mb-3"
+          >
+            OTB Ratings
+          </h5>
+
+          <table class="table-fixed w-full">
+            <tbody>
+              <tr>
+                <td>Regular</td>
+                <td>{{ player.regularRating }}</td>
+              </tr>
+
+              <tr>
+                <td>Quick</td>
+                <td>{{ player.quickRating }}</td>
+              </tr>
+
+              <tr>
+                <td>Blitz</td>
+                <td>{{ player.blitzRating }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h5
+            class="text-pink-500 text-sm font-mono font-semibold uppercase mb-3"
+          >
+            Online Ratings
+          </h5>
+
+          <table class="table-fixed w-full">
+            <tbody>
+              <tr>
+                <td>Online Regular</td>
+                <td>{{ player.onlineRegularRating }}</td>
+              </tr>
+
+              <tr>
+                <td>Online Quick</td>
+                <td>{{ player.onlineQuickRating }}</td>
+              </tr>
+
+              <tr>
+                <td>Online Blitz</td>
+                <td>{{ player.onlineBlitzRating }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h5
+            class="text-pink-500 text-sm font-mono font-semibold uppercase mb-3"
+          >
+            Region Ranks
+          </h5>
+
+          <div
+            class="flex flex-col space-y-5 md:flex-row md:space-x-5 md:space-y-0"
+          >
+            <ng-container
+              *ngIf="
+                player.stateRanking !== null &&
+                player.stateRankingOutOf !== null
+              "
+            >
+              <div
+                class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+
+                <div class="flex flex-col">
+                  <div class="font-semibold">
+                    {{ player.state }} State Ranking
+                  </div>
+
+                  <span>
+                    {{ player.stateRanking }} of {{ player.stateRankingOutOf }}
+
+                    ({{ player.statePercentile }})
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container
+              *ngIf="
+                player.overallRanking !== null &&
+                player.overallRankingOutOf !== null
+              "
+            >
+              <div
+                class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+
+                <div class="flex flex-col">
+                  <div class="font-semibold">Overall Ranking</div>
+
+                  <span>
+                    {{ player.overallRanking }} of
+                    {{ player.overallRankingOutOf }}
+
+                    ({{ player.overallPercentile }})
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
