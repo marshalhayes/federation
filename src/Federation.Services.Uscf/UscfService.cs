@@ -13,11 +13,14 @@ public class UscfService
         File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
             $"JsonConfigs{Path.DirectorySeparatorChar}PlayerProfile.json"));
 
-    private static readonly HtmlParser<PlayerProfile> ProfileParser = new(PlayerProfileSchema);
+    private static readonly HtmlParser<UscfPlayerProfile> ProfileParser = new(PlayerProfileSchema);
 
     public UscfService()
     {
-        httpClient = new HttpClient();
+        httpClient = new HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(10)
+        };
 
         var currentAssembly = Assembly.GetExecutingAssembly();
 
@@ -25,7 +28,7 @@ public class UscfService
             $".NET {currentAssembly.ImageRuntimeVersion}; {currentAssembly.GetName()}");
     }
 
-    public async ValueTask<PlayerProfile?> GetPlayerProfileAsync(string uscfId,
+    public async ValueTask<UscfPlayerProfile?> GetPlayerProfileAsync(string uscfId,
         CancellationToken cancellationToken = default)
     {
         using HttpResponseMessage response =

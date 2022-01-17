@@ -11,7 +11,7 @@
       "TrimTransformation"
     ]
   },
-  "UscfId": {
+  "PlayerId": {
     "_xpath": "//font/b/text()",
     "_transformations": [
       {
@@ -21,51 +21,66 @@
     ]
   },
   "RegularRating": {
-    "_xpath": "//tr[td[normalize-space()='Regular Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Regular Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "QuickRating": {
-    "_xpath": "//tr[td[normalize-space()='Quick Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Quick Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "BlitzRating": {
-    "_xpath": "//tr[td[normalize-space()='Blitz Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Blitz Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "OnlineRegularRating": {
-    "_xpath": "//tr[td[normalize-space()='Online-Regular Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Online-Regular Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "OnlineQuickRating": {
-    "_xpath": "//tr[td[normalize-space()='Online-Quick Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Online-Quick Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "OnlineBlitzRating": {
-    "_xpath": "//tr[td[normalize-space()='Online-Blitz Rating']]/td[2]",
+    "_xpath": "//tr[td[normalize-space()='Online-Blitz Rating']]/td[2][normalize-space(.)]",
     "_transformations": [
-      "HtmlDecodeTransformation",
-      "RemoveExtraWhitespaceTransformation",
-      "TrimTransformation"
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
+    ]
+  },
+  "CorrespondenceRating": {
+    "_xpath": "//tr[td[normalize-space()='Correspondence Rating']]/td[2][normalize-space(.)]",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^[\\s]*[\\(]*([a-zA-Z0-9]+)[\\)]*[\\s]*"
+      }
     ]
   },
   "State": {

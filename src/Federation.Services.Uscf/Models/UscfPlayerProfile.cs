@@ -1,8 +1,8 @@
 namespace Federation.Services.Uscf.Models;
 
-public class PlayerProfile
+public class UscfPlayerProfile
 {
-    public string? UscfId { get; set; }
+    public string PlayerId { get; set; } = null!;
 
     public string? PlayerName { get; set; }
 
@@ -13,6 +13,8 @@ public class PlayerProfile
     public string? OnlineRegularRating { get; set; }
     public string? OnlineQuickRating { get; set; }
     public string? OnlineBlitzRating { get; set; }
+
+    public string? CorrespondenceRating { get; set; }
 
     public string? State { get; set; }
 
