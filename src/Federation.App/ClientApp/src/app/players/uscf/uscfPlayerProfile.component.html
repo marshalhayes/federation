@@ -62,7 +62,7 @@
             <span>Last changed</span>
 
             <time [dateTime]="player.lastChangeDate.toISOString()">
-              {{ player.lastChangeDate | date: 'shortDate' }}
+              {{ player.lastChangeDate | date: 'yyyy-MM-dd' }}
             </time>
           </div>
         </li>
@@ -90,11 +90,85 @@
             <span>{{ player.expiresOn < today ? 'Expired' : 'Expires' }}</span>
 
             <time [dateTime]="player.expiresOn.toISOString()">
-              {{ player.expiresOn | date: 'shortDate' }}
+              {{ player.expiresOn | date: 'yyyy-MM-dd' }}
             </time>
           </div>
         </li>
       </ul>
+
+      <div class="mt-5 flex flex-col space-y-5">
+        <ng-container
+          *ngIf="
+            player.stateRanking !== null && player.stateRankingOutOf !== null
+          "
+        >
+          <div
+            class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+
+            <div class="flex flex-col">
+              <div class="font-semibold">{{ player.state }} State Ranking</div>
+
+              <span>
+                {{ player.stateRanking }} of {{ player.stateRankingOutOf }}
+
+                ({{ player.statePercentile }})
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container
+          *ngIf="
+            player.overallRanking !== null &&
+            player.overallRankingOutOf !== null
+          "
+        >
+          <div
+            class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+
+            <div class="flex flex-col">
+              <div class="font-semibold">Overall Ranking</div>
+
+              <span>
+                {{ player.overallRanking }} of
+                {{ player.overallRankingOutOf }}
+
+                ({{ player.overallPercentile }})
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
 
     <div class="flex-grow md:w-4/5">
@@ -153,28 +227,94 @@
           </table>
         </section>
 
-        <section>
+        <section *ngIf="tournaments$ | async as tournaments">
           <h5
             class="text-pink-500 text-sm font-mono font-semibold uppercase mb-3"
           >
-            Region Ranks
+            Tournaments
           </h5>
 
-          <div
-            class="flex flex-col space-y-5 md:flex-row md:space-x-5 md:space-y-0"
-          >
-            <ng-container
-              *ngIf="
-                player.stateRanking !== null &&
-                player.stateRankingOutOf !== null
-              "
-            >
-              <div
-                class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+          <ng-container *ngIf="tournaments.total > 0; else noTournaments">
+            <div class="flex items-center justify-between">
+              <div *ngIf="tournamentPaginationSubject$.value as pageInfo">
+                {{ pageInfo.offset + 1 }} -
+                {{ min(pageInfo.offset + pageInfo.limit, tournaments.total) }}
+                of
+                {{ tournaments.total }}
+              </div>
+
+              <div>
+                <span class="inline-block mr-2">Per page:</span>
+
+                <select
+                  class="border rounded px-3 py-2"
+                  [ngModel]="limitSelection"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="
+                    tournamentPaginationSubject$.next({
+                      offset: this.tournamentPaginationSubject$.value.offset,
+                      limit: +$event
+                    })
+                  "
+                >
+                  <option *ngFor="let option of limitOptions">
+                    {{ option }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="table-fixed min-w-full">
+                <thead class="text-left">
+                  <tr>
+                    <th class="p-2">Event</th>
+                    <th class="p-2">Section</th>
+                    <th class="p-2">Date</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr
+                    *ngFor="let event of tournaments.results"
+                    class="odd:bg-gray-100"
+                  >
+                    <td class="p-2 whitespace-nowrap">
+                      <a
+                        class="hover:underline text-gray-900"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        [href]="getLinkToEvent(event.eventId, player.playerId)"
+                      >
+                        {{ event.eventName }}
+                      </a>
+                    </td>
+
+                    <td class="p-2 whitespace-nowrap">
+                      {{ event.sectionName }}
+                    </td>
+
+                    <td class="p-2 whitespace-nowrap">
+                      {{ event.endDate | date: 'yyyy-MM-dd' }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="flex justify-between items-center my-3">
+              <button
+                type="button"
+                class="px-3 py-2 bg-gray-900 text-gray-200 rounded disabled:opacity-30"
+                (click)="previousTournaments()"
+                [disabled]="
+                  tournamentsLoading ||
+                  tournamentPaginationSubject$.value.offset <= 0
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-8 w-8"
+                  class="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -183,36 +323,25 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
                 </svg>
+              </button>
 
-                <div class="flex flex-col">
-                  <div class="font-semibold">
-                    {{ player.state }} State Ranking
-                  </div>
-
-                  <span>
-                    {{ player.stateRanking }} of {{ player.stateRankingOutOf }}
-
-                    ({{ player.statePercentile }})
-                  </span>
-                </div>
-              </div>
-            </ng-container>
-
-            <ng-container
-              *ngIf="
-                player.overallRanking !== null &&
-                player.overallRankingOutOf !== null
-              "
-            >
-              <div
-                class="rounded p-4 shadow inline-flex space-x-5 items-center bg-pink-200"
+              <button
+                type="button"
+                class="px-3 py-2 bg-gray-900 text-gray-200 rounded disabled:opacity-30"
+                (click)="nextTournaments()"
+                [disabled]="
+                  tournamentsLoading ||
+                  tournamentPaginationSubject$.value.offset +
+                    tournamentPaginationSubject$.value.limit >=
+                    tournaments.total
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-8 w-8"
+                  class="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -221,25 +350,18 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
-
-                <div class="flex flex-col">
-                  <div class="font-semibold">Overall Ranking</div>
-
-                  <span>
-                    {{ player.overallRanking }} of
-                    {{ player.overallRankingOutOf }}
-
-                    ({{ player.overallPercentile }})
-                  </span>
-                </div>
-              </div>
-            </ng-container>
-          </div>
+              </button>
+            </div>
+          </ng-container>
         </section>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #noTournaments>
+  <p>{{ player.playerName }} hasn't played in any tournaments yet.</p>
+</ng-template>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UscfPlayerProfileComponent } from './uscfPlayerProfile.component';
 import { RouterModule } from '@angular/router';
 import { UscfPlayerResolver } from './uscfPlayer.resolver';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { UscfPlayerResolver } from './uscfPlayer.resolver';
         },
       },
     ]),
+    FormsModule,
   ],
   declarations: [UscfPlayerProfileComponent],
   providers: [UscfPlayerResolver],
