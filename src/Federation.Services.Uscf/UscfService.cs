@@ -23,6 +23,9 @@ public class UscfService
 
     private static readonly HtmlParser<UscfPlayerProfile> ProfileParser = new(PlayerProfileSchema);
 
+    private static readonly StructuredDataExtractor TournamentExtractor =
+        new(StructuredDataConfig.ParseJsonString(TournamentSchema));
+
     public UscfService()
     {
         httpClient = new HttpClient
@@ -61,10 +64,7 @@ public class UscfService
             yield break;
         }
 
-        ConfigSection config = StructuredDataConfig.ParseJsonString(TournamentSchema);
-        StructuredDataExtractor extractor = new(config);
-
-        JContainer container = extractor.Extract(await response.Content.ReadAsStringAsync());
+        JContainer container = TournamentExtractor.Extract(await response.Content.ReadAsStringAsync());
         if (container.HasValues)
         {
             PropertyInfo[] writeableProperties =
