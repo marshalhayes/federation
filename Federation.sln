@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Federation.App", "src\Federation.App\Federation.App.csproj", "{C8F540CA-9848-4AF3-9D4B-F8C48AA4EC99}"
