@@ -1,0 +1,43 @@
+{
+  "EventId": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[1]/small",
+  "EventName": {
+    "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[2]/a/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "(.*)\\s+\\([a-zA-Z]+\\)"
+      },
+      "HtmlDecodeTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "EventState": {
+    "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[2]/a/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "\\(([a-zA-Z]+)\\)$"
+      },
+      "HtmlDecodeTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "SectionName": {
+    "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[2]/small",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "\\d+: (.*)"
+      }
+    ]
+  },
+  "EndDate": {
+    "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[1]/text()",
+    "_transformations": [
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  }
+}

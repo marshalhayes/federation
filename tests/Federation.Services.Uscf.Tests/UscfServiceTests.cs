@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Federation.Services.Uscf.Models;
 using Xunit;
@@ -69,5 +71,16 @@ public class UscfServiceTests
 
         Assert.True(!string.IsNullOrWhiteSpace(profile?.Gender),
             $"{nameof(UscfPlayerProfile.Gender)} should have some value");
+    }
+
+    [Theory]
+    [InlineData("13607491")]
+    public async Task ShouldHaveSomeTournaments(string uscfId)
+    {
+        IAsyncEnumerable<UscfPlayerTournament> tournaments = UscfService.GetPlayerTournamentsAsync(uscfId);
+
+        List<UscfPlayerTournament> results = await tournaments.ToListAsync();
+
+        Assert.NotEmpty(results);
     }
 }

@@ -13,8 +13,15 @@
 
     <ItemGroup>
       <None Update="JsonConfigs\PlayerProfile.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="JsonConfigs\PlayerTournament.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Linq.Async" Version="5.1.0" />
     </ItemGroup>
 
 </Project>
