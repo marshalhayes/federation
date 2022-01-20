@@ -11,17 +11,6 @@
       "TrimTransformation"
     ]
   },
-  "EventState": {
-    "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[2]/a/text()",
-    "_transformations": [
-      {
-        "_type": "RegexTransformation",
-        "_regex": "\\(([a-zA-Z]+)\\)$"
-      },
-      "HtmlDecodeTransformation",
-      "TrimTransformation"
-    ]
-  },
   "SectionName": {
     "_xpath": "//tr[@bgcolor='FFFFC0' or @bgcolor='FFFF80']/td[2]/small",
     "_transformations": [

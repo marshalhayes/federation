@@ -7,8 +7,6 @@ public class UscfPlayerTournament
 
     public string EventName { get; set; }
 
-    public string EventState { get; set; }
-
     public string SectionName { get; set; }
 #nullable enable
 
