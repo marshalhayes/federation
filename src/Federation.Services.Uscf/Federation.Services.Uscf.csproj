@@ -5,26 +5,37 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>default</LangVersion>
+        <PackageVersion>0.0.1-alpha</PackageVersion>
+        <Title>Federation.Services.Uscf</Title>
+        <Authors>Marshal Hayes</Authors>
+        <PackageProjectUrl>https://github.com/marshalhayes/federation</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/marshalhayes/federation</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/marshalhayes/federation/main/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Federation.Services.Core\Federation.Services.Core.csproj" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="JsonConfigs\PlayerProfile.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="JsonConfigs\PlayerTournament.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="JsonConfigs\Tournament.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <ProjectReference Include="..\Federation.Services.Core\Federation.Services.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Linq.Async" Version="5.1.0" />
+        <None Update="JsonConfigs\PlayerProfile.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="JsonConfigs\PlayerTournament.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="JsonConfigs\Tournament.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Linq.Async" Version="5.1.0" />
     </ItemGroup>
 
 </Project>
