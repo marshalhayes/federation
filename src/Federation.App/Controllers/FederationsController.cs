@@ -1,3 +1,4 @@
+using Federation.App.Models;
 using Federation.Services.Uscf;
 using Federation.Services.Uscf.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +32,10 @@ public class FederationsController : ControllerBase
         List<UscfPlayerTournament> tournaments = await uscfService
             .GetPlayerTournamentsAsync(playerId, cancellationToken).ToListAsync(cancellationToken);
 
-        return Ok(new
-        {
-            Total = tournaments.Count,
-            Results = tournaments.Skip(offset).Take(limit)
-        });
+        PaginatedResults<UscfPlayerTournament> results = PaginatedResults<UscfPlayerTournament>
+            .FromItems(tournaments.Skip(offset).Take(limit))
+            .WithTotal(tournaments.Count);
+
+        return Ok(results);
     }
 }
