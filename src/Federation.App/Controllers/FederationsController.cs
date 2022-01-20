@@ -38,4 +38,18 @@ public class FederationsController : ControllerBase
 
         return Ok(results);
     }
+
+    [HttpGet("tournaments/{eventId}")]
+    public async ValueTask<IActionResult> GetPlayerTournaments(string federation, string eventId,
+        CancellationToken cancellationToken = default)
+    {
+        UscfTournamentDetails? tournamentDetails = await uscfService.GetTournamentAsync(eventId, cancellationToken);
+
+        if (tournamentDetails is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(tournamentDetails);
+    }
 }

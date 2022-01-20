@@ -83,4 +83,13 @@ public class UscfServiceTests
 
         Assert.NotEmpty(results);
     }
+
+    [Theory]
+    [InlineData("201504122732")]
+    public async Task TournamentShouldExist(string eventId)
+    {
+        UscfTournamentDetails? tournamentDetails = await UscfService.GetTournamentAsync(eventId);
+
+        Assert.NotNull(tournamentDetails);
+    }
 }

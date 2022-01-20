@@ -1,0 +1,93 @@
+{
+  "EventId": {
+    "_xpath": "//tr[td[normalize-space()='Event']]/td[3]/small/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "\\((\\d+)\\)$"
+      }
+    ]
+  },
+  "EventName": {
+    "_xpath": "//tr[td[normalize-space()='Event']]/td[3]/b/text()",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "Location": {
+    "_xpath": "//tr[td[normalize-space()='Location']]/td[2]",
+    "_transformations": [
+      "HtmlDecodeTransformation",
+      "RemoveExtraWhitespaceTransformation",
+      "TrimTransformation"
+    ]
+  },
+  "SponsoringAffiliateId": {
+    "_xpath": "//tr[td[normalize-space()='Sponsoring Affiliate']]/td[2]/small/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "\\(([a-zA-Z0-9]+)\\)$"
+      }
+    ]
+  },
+  "ProcessedOn": {
+    "_xpath": "//tr[td[normalize-space()='Processed']]/td[2]/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Received:\\s*([0-9]{4}-[0-9]{2}-[0-9]{2})"
+      },
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  },
+  "EnteredOn": {
+    "_xpath": "//tr[td[normalize-space()='Processed']]/td[2]/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Entered:\\s*([0-9]{4}-[0-9]{2}-[0-9]{2})"
+      },
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  },
+  "RatedOn": {
+    "_xpath": "//tr[td[normalize-space()='Processed']]/td[2]/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Rated:\\s*([0-9]{4}-[0-9]{2}-[0-9]{2})"
+      },
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "yyyy-MM-dd"
+      }
+    ]
+  },
+  "OrganizerId": {
+    "_xpath": "//tr[td[normalize-space()='Organizer']]/td[2]/small/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "\\((\\d+)\\)$"
+      }
+    ]
+  },
+  "TotalPlayers": {
+    "_xpath": "//tr[td[normalize-space()='Stats']]/td[2]/b/text()",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "([0-9]+)\\sPlayers"
+      }
+    ]
+  }
+}

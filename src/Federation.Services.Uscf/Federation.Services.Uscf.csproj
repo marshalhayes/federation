@@ -18,6 +18,9 @@
       <None Update="JsonConfigs\PlayerTournament.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="JsonConfigs\Tournament.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

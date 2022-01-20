@@ -17,14 +17,20 @@ public class UscfService
         File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
             $"JsonConfigs{Path.DirectorySeparatorChar}PlayerProfile.json"));
 
-    private static readonly string TournamentSchema =
+    private static readonly string PlayerTournamentSchema =
         File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
             $"JsonConfigs{Path.DirectorySeparatorChar}PlayerTournament.json"));
 
+    private static readonly string TournamentSchema =
+        File.ReadAllText(Path.Join(Assembly.GetExecutingAssembly().Location, "..",
+            $"JsonConfigs{Path.DirectorySeparatorChar}Tournament.json"));
+
     private static readonly HtmlParser<UscfPlayerProfile> ProfileParser = new(PlayerProfileSchema);
 
-    private static readonly StructuredDataExtractor TournamentExtractor =
-        new(StructuredDataConfig.ParseJsonString(TournamentSchema));
+    private static readonly HtmlParser<UscfTournamentDetails> TournamentExtractor = new(TournamentSchema);
+
+    private static readonly StructuredDataExtractor PlayerTournamentExtractor =
+        new(StructuredDataConfig.ParseJsonString(PlayerTournamentSchema));
 
     public UscfService()
     {
@@ -51,6 +57,18 @@ public class UscfService
             : ProfileParser.Parse(await response.Content.ReadAsStreamAsync());
     }
 
+    public async ValueTask<UscfTournamentDetails?> GetTournamentAsync(string eventId,
+        CancellationToken cancellationToken = default)
+    {
+        using HttpResponseMessage response =
+            await httpClient.GetAsync($"https://www.uschess.org/msa/XtblMain.php?{HttpUtility.UrlEncode(eventId)}.0",
+                cancellationToken);
+
+        return !response.IsSuccessStatusCode
+            ? default
+            : TournamentExtractor.Parse(await response.Content.ReadAsStreamAsync());
+    }
+
     public async IAsyncEnumerable<UscfPlayerTournament> GetPlayerTournamentsAsync(string uscfId,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -64,7 +82,7 @@ public class UscfService
             yield break;
         }
 
-        JContainer container = TournamentExtractor.Extract(await response.Content.ReadAsStringAsync());
+        JContainer container = PlayerTournamentExtractor.Extract(await response.Content.ReadAsStringAsync());
         if (container.HasValues)
         {
             PropertyInfo[] writeableProperties =
