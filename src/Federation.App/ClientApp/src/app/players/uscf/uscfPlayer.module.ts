@@ -4,6 +4,7 @@ import { UscfPlayerProfileComponent } from './uscfPlayerProfile.component';
 import { RouterModule } from '@angular/router';
 import { UscfPlayerResolver } from './uscfPlayer.resolver';
 import { FormsModule } from '@angular/forms';
+import { UscfTournamentsModule } from './tournaments/uscfTournaments.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
       },
     ]),
     FormsModule,
+    UscfTournamentsModule,
   ],
   declarations: [UscfPlayerProfileComponent],
   providers: [UscfPlayerResolver],

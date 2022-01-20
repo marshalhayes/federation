@@ -1,0 +1,125 @@
+<ng-container *ngIf="tournaments$ | async as tournaments">
+  <ng-container *ngIf="tournaments.total > 0; else noTournaments">
+    <ng-container *ngIf="tournamentPaginationSubject$ | async as pageInfo">
+      <div class="flex items-center justify-between">
+        <div>
+          {{ pageInfo.offset + 1 }} -
+          {{ min(pageInfo.offset + pageInfo.limit, tournaments.total) }}
+          of
+          {{ tournaments.total }}
+        </div>
+
+        <div>
+          <span class="inline-block mr-2">Per page:</span>
+
+          <select
+            class="border rounded px-3 py-2"
+            [ngModel]="limitSelection"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="
+              tournamentPaginationSubject$.next({
+                offset: pageInfo.offset,
+                limit: +$event
+              })
+            "
+          >
+            <option *ngFor="let option of limitOptions">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="table-fixed min-w-full">
+          <thead class="text-left">
+            <tr>
+              <th class="p-2">Event</th>
+              <th class="p-2">Section</th>
+              <th class="p-2">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="let event of tournaments.results"
+              class="odd:bg-gray-100"
+            >
+              <td class="p-2 whitespace-nowrap">
+                <a
+                  class="hover:underline text-gray-900"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  [href]="getLinkToEvent(event.eventId, playerId)"
+                >
+                  {{ event.eventName }}
+                </a>
+              </td>
+
+              <td class="p-2 whitespace-nowrap">
+                {{ event.sectionName }}
+              </td>
+
+              <td class="p-2 whitespace-nowrap">
+                {{ event.endDate | date: 'yyyy-MM-dd' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-between items-center my-3">
+        <button
+          type="button"
+          class="px-3 py-2 bg-gray-900 text-gray-200 rounded disabled:opacity-30"
+          (click)="previous()"
+          [disabled]="tournamentsLoading || pageInfo.offset <= 0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="px-3 py-2 bg-gray-900 text-gray-200 rounded disabled:opacity-30"
+          (click)="next()"
+          [disabled]="
+            tournamentsLoading ||
+            pageInfo.offset + pageInfo.limit >= tournaments.total
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #noTournaments>
+  <p>This player hasn't played in any tournaments yet.</p>
+</ng-template>
