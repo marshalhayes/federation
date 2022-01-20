@@ -5,10 +5,21 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>default</LangVersion>
+        <PackageVersion>0.0.1-alpha</PackageVersion>
+        <Title>Federation.Services.Core</Title>
+        <Authors>Marshal Hayes</Authors>
+        <PackageProjectUrl>https://github.com/marshalhayes/federation</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/marshalhayes/federation</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/marshalhayes/federation/main/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="OpenScraping" Version="1.4.2" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="OpenScraping" Version="1.4.2" />
     </ItemGroup>
 
 </Project>
